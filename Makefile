@@ -7,5 +7,14 @@ setup:
 freeze:
 	@pip3 freeze > requirements.txt
 
-run:
-	@uvicorn main:app --reload
+docker:
+	@docker-compose up -d
+
+run:	
+	@uvicorn main:app --reload	
+
+alembic-revision:
+	@alembic revision --autogenerate
+
+alembic-upgrade:
+	@alembic upgrade head
