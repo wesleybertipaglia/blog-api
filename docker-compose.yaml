@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: strong-password
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data   
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - '8080:8080'
+
+volumes:
+  db:
