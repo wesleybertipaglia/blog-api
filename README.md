@@ -39,6 +39,8 @@ Make setup
 Make run
 ```
 
+> 🚀 Open your browser and go to [http://localhost:8000](http://localhost:8000) to see the api in action.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
