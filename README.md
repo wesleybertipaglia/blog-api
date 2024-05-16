@@ -86,12 +86,6 @@ The following checklist can be used to track the project progress:
 - [ ] Deploy
 - [ ] Monitoring
 
-## 🚀 Improvements
-
-The following improvements can be made to the project:
-
-- [ ] todo
-
 ## 📜 License
 
 This repository is licensed under the [MIT]. See the [LICENSE](LICENSE) file for details.
