@@ -61,8 +61,7 @@ The API has the following endpoints:
 - `/auth`: Sign-up and Sign-in
 - `/profile`: Read, Update, Delete
 - `/users`: Read
-- `/products`: Create, Read, Update, Delete
-- `/orders`: Create, Read, Update, Delete
+- `/posts`: Create, Read, Update, Delete
 
 To know more about the endpoints, check the [endpoints.md](/docs/endpoints.md) file, or access the API documentation in the following URL:
 [localhost:8000/docs](http://localhost:8000/docs)
