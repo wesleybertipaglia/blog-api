@@ -1,2 +1,0 @@
-- [ ] Configure Alembic for database migrations
-- [ ] Add a database migration
