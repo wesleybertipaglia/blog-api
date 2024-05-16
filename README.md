@@ -8,13 +8,12 @@ A Restful API for creating and managing a blog, powered by the FastAPI framework
 - [todo]
 
 ## 📚 Table of Contents
-- [Getting Started](#getting-started)
+- [Getting Started](#-getting-started)
 - [Commands](#-commands)
 - [Endpoints](#-endpoints)
 - [Tech Stack](#-tech-stack)
 - [License](#-license)
 - [Checklist](#-checklist)
-- [Improvements](#-improvements)
 
 To know more about the project structure, check the [structure.md](/docs/structure.md) file.
 
