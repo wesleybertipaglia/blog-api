@@ -1,11 +1,19 @@
-# 📓 Blog API
-A Restful API for creating and managing a blog, powered by the FastAPI framework.
+# 📓 Blog Sphere
+A Full-Stack Blog Application built with FastAPI and React.
 
 ### Features:
 
 - ✅ Sign-up & Sign-in
-- ✅ Create and Customize your profile
-- [todo]
+- ✅ Customizeable User Profile
+- ✅ Create and manage posts
+- ✅ Read, share and interact with posts
+- ✅ API Documentation
+- ✅ PostgreSQL Database
+- ✅ Alembic Migrations and seed data
+- ✅ Docker and Docker Compose
+- ✅ CI/CD with GitHub Actions (coming soon)
+- ✅ Monitoring and Logging (coming soon)
+- ✅ Automated Tests (coming soon)
 
 ## 📚 Table of Contents
 - [Getting Started](#-getting-started)
@@ -20,7 +28,7 @@ To know more about the project structure, check the [structure.md](/docs/structu
 ## 🤖 Getting Started
 1. Clone the repository
 ```bash
-git clone https://github.com/wesleybertipaglia/blog-api.git
+git clone https://github.com/wesleybertipaglia/blog-sphere.git
 ```
 
 2. Initialize and Activate the virtual environment
