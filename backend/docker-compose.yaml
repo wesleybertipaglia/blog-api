@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: blog-sphere
+      POSTGRES_DB: blog
     ports:
       - 5432:5432
     volumes:

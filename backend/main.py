@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from core.database import create_db
-from src.controllers import *
+from src.core.database import create_db
+from src.routes import *
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000)
@@ -25,7 +25,7 @@ app.add_middleware(
 
 @app.get('/')
 def home():
-    return 'Welcome to store API 🎉'
+    return 'Welcome to Blog Sphere API 🌐'
 
 # routes
-app.include_router(auth_router, prefix='/auth')
+app.include_router(user_router, prefix='/users', tags=['Users'])
