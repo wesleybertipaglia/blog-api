@@ -7,7 +7,7 @@ from src.routes import *
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000)
 
-create_db()
+create_db(seed=False)
 app = FastAPI()
 
 origins = [
