@@ -13,22 +13,15 @@ class TokenProvider:
         self.access_token_expire_minutes = 60 * 24 * 1
         self.blacklist = []
 
-    def create_access_token(self, data: dict):
+    def generate(self, data: dict):
         """Create an access token"""
         copy_data = data.copy()
         expire = datetime.now() + timedelta(minutes=self.access_token_expire_minutes)
         expire_timestamp = expire.timestamp()
         copy_data.update({"exp": expire_timestamp})
         return jwt.encode(copy_data, self.secret_key, algorithm=self.algorithm)
-    
-    def revoke_access_token(self, token: str):
-        """Revoke an access token"""
-        self.blacklist.append(token)
-        expire = datetime.now()
-        expire_timestamp = expire.timestamp()        
-        return jwt.encode({"exp": expire_timestamp}, self.secret_key, algorithm=self.algorithm)
         
-    def verify_token(self, token: str):
+    def verify(self, token: str):
         """Verify a token"""
         if token in self.blacklist:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token revoked")

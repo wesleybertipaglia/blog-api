@@ -6,9 +6,19 @@ engine = create_engine("postgresql://admin:admin@localhost:5432/blog")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-def create_db():
+def create_db(seed: bool = False):
     """Create the database"""
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+        if seed:
+            seed_db()
+        print("Database created and seeded successfully")
+    except Exception as e:
+        print(f"An error occurred while creating the database: {e}")
+
+def seed_db():
+    """Seed the database"""
+    pass
 
 def get_db():
     """Get the database"""
