@@ -1,8 +1,9 @@
 """User controller module."""
+
 from typing import List
-from fastapi import HTTPException, status
-from src.schemas.user import UserList, UserSingle
+from src.schemas.user import User, UserList, UserSingle
 from src.repositories.user import UserRepository
+from fastapi.responses import JSONResponse
 
 class UserController:
     """User controller class."""
@@ -16,7 +17,16 @@ class UserController:
     
     def get(self, id: str) -> UserSingle:
         """Get a user by id. (id: str) -> UserSingle."""
-        user = self.user_repository.get(id)
-        if not user:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found (404).")
-        return user
+        return self.user_repository.get(id)
+    
+    def create(self, user: User) -> UserSingle:
+        """Create a user. (user: User) -> UserSingle."""
+        return self.user_repository.create(user)
+    
+    def update(self, id: str, user: UserSingle) -> UserSingle:
+        """Update a user by id. (id: str, user: UserSingle) -> UserSingle."""
+        return self.user_repository.update(id, user)
+    
+    def delete(self, id: str) -> JSONResponse:
+        """Delete a user by id. (id: str) -> JSONResponse."""
+        return self.user_repository.delete(id)

@@ -1,9 +1,10 @@
 """User schemas module."""
+
 from typing import Optional
 from pydantic import BaseModel
 
 class User(BaseModel):
-    """User schema - Signup"""
+    """User schema - Base"""
     id: Optional[str] = None
     username: str
     email: str
@@ -38,16 +39,3 @@ class UserSingle(BaseModel):
         """Pydantic configuration"""
         from_attributes = True
 
-class UserUpdate(BaseModel):
-    """User schema - Update"""
-    username: Optional[str] = None
-    name: Optional[str] = None
-    email: Optional[str] = None
-    bio: Optional[str] = None
-    picture: Optional[str] = None
-    location: Optional[str] = None
-    link: Optional[str] = None
-
-    class Config:
-        """Pydantic configuration"""
-        from_attributes = True

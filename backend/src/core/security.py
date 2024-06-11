@@ -1,7 +1,7 @@
 """Security module."""
 
-from providers.token import TokenProvider
-from providers.hash import HashProvider
+from src.providers.token import TokenProvider
+from src.providers.hash import HashProvider
 
 class Security:
     """Security class."""
@@ -9,18 +9,18 @@ class Security:
         self.token = TokenProvider()
         self.hash = HashProvider()
 
-    def generate_token(self, data):
+    def generate_token(self, data) -> str:
         """Generate a token from data. (data) -> token string"""
         return self.token.generate(data)
 
-    def verify_token(self, token):
+    def verify_token(self, token: str) -> bool:
         """Verify a token. (token) -> bool"""
         return self.token.verify(token)
 
-    def generate_hash(self, data):
-        """Generate a hash from data. (data) -> hash string"""
-        return self.hash.generate(data)
+    def generate_hash(self, password: str) -> str:
+        """Generate a hash from data. (password) -> hash string"""
+        return self.hash.generate(password)
 
-    def verify_hash(self, data, hash):
-        """Verify a hash. (data, hash) -> bool"""
-        return self.hash.verify(data, hash)
+    def verify_hash(self, password: str, hash: str) -> bool:
+        """Verify a hash. (password, hash) -> bool"""
+        return self.hash.verify(plain_password=password, hashed_password=hash)

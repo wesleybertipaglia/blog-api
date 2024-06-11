@@ -1,3 +1,4 @@
+"""Token provider module."""
 
 import secrets
 from fastapi import HTTPException, status
