@@ -26,8 +26,6 @@ class TokenProvider:
     def verify(self, token: str) -> dict:
         """Verify a token. (token: str) -> dict."""
         try:
-            print(f"verify - Token received: {token}")   # remove this line
-            print("="*100)                               # remove this line
             return jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
         except ExpiredSignatureError:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired.")
