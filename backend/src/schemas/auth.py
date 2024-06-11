@@ -38,7 +38,7 @@ class AuthUpdatePassword(BaseModel):
 class AuthDelete(BaseModel):
     """Auth schema - Delete"""
     id: Optional[str] = None
-    password: str
+    password: Optional[str] = None
     class Config:
         """Pydantic configuration"""
         from_attributes = True

@@ -3,34 +3,35 @@
 import secrets
 from fastapi import HTTPException, status
 from jose import jwt
-from jose.exceptions import JWTError
+from jose.exceptions import JWTError, ExpiredSignatureError
 from datetime import datetime, timedelta
 
 class TokenProvider:
     """Token provider class"""
     def __init__(self):
-        self.secret_key = secrets.token_urlsafe(32)
+        self.secret_key = "OiJIUzI1NiIsInR5cCI6IkeyJzdWIiOiJOaWtvX1RvcnBAe"
         self.algorithm = "HS256"
-        self.access_token_expire_minutes = 60 * 24 * 1
-        self.blacklist = []
+        self.access_token_expire_minutes = 60 * 24 * 1  # 1 day
 
-    def generate(self, data: dict):
-        """Create an access token"""
-        copy_data = data.copy()
-        expire = datetime.now() + timedelta(minutes=self.access_token_expire_minutes)
-        expire_timestamp = expire.timestamp()
-        copy_data.update({"exp": expire_timestamp})
-        return jwt.encode(copy_data, self.secret_key, algorithm=self.algorithm)
-        
-    def verify(self, token: str):
-        """Verify a token"""
-        if token in self.blacklist:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token revoked")
-
+    def generate(self, data: dict) -> str:
+        """Generate a token. (data: dict) -> str."""
         try:
-            payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
-            return payload.get("sub")
-        except JWTError as e:
-            print(e)
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")        
-    
+            to_encode = data.copy()
+            expire = datetime.now() + timedelta(minutes=self.access_token_expire_minutes)
+            to_encode.update({"exp": expire})
+            return jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
+        except Exception as error:
+            raise error
+        
+    def verify(self, token: str) -> dict:
+        """Verify a token. (token: str) -> dict."""
+        try:
+            print(f"verify - Token received: {token}")   # remove this line
+            print("="*100)                               # remove this line
+            return jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
+        except ExpiredSignatureError:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired.")
+        except JWTError as error:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token: "+str(error))
+        except Exception as error:
+            raise error

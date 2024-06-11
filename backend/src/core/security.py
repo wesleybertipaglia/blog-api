@@ -1,5 +1,6 @@
 """Security module."""
 
+from fastapi.security import OAuth2PasswordBearer
 from src.providers.token import TokenProvider
 from src.providers.hash import HashProvider
 
@@ -8,13 +9,14 @@ class Security:
     def __init__(self):
         self.token = TokenProvider()
         self.hash = HashProvider()
+        self.oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-    def generate_token(self, data) -> str:
-        """Generate a token from data. (data) -> token string"""
+    def generate_token(self, data: dict) -> str:
+        """Generate a token from data. (data: dict) -> token string"""
         return self.token.generate(data)
 
-    def verify_token(self, token: str) -> bool:
-        """Verify a token. (token) -> bool"""
+    def verify_token(self, token: str):
+        """Verify a token. (token: str) -> dict"""
         return self.token.verify(token)
 
     def generate_hash(self, password: str) -> str:
@@ -23,4 +25,4 @@ class Security:
 
     def verify_hash(self, password: str, hash: str) -> bool:
         """Verify a hash. (password, hash) -> bool"""
-        return self.hash.verify(plain_password=password, hashed_password=hash)
+        return self.hash.verify(plain_password=password, hashed_password=hash) 

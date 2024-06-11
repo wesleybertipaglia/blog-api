@@ -31,21 +31,21 @@ class UserRepository():
         except Exception as error:
             raise error
     
-    def __get_by_email(self, email: str) -> UserModel:
+    def get_by_email(self, email: str) -> UserModel:
         """Get a user by email. (email: str) -> UserModel."""
         return self.db.query(UserModel).filter(UserModel.email == email).first()
     
-    def __get_by_username(self, username: str) -> UserModel:
+    def get_by_username(self, username: str) -> UserModel:
         """Get a user by username. (username: str) -> UserModel."""
         return self.db.query(UserModel).filter(UserModel.username == username).first()
 
     def create(self, user: User) -> UserModel:
         """Create a new user. (user: UserModel) -> UserModel."""     
         try:
-            if self.__get_by_email(user.email):
+            if self.get_by_email(user.email):
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered.")
         
-            if self.__get_by_username(user.username):
+            if self.get_by_username(user.username):
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username already registered.")
             
             new_user = UserModel(**user.model_dump(exclude_unset=True, exclude={"password"}), password=self.security.generate_hash(password=user.password))
@@ -63,11 +63,11 @@ class UserRepository():
             stored_user = self.get(id)
 
             if user.email and user.email != stored_user.email:
-                if self.__get_by_email(user.email):
+                if self.get_by_email(user.email):
                     raise HTTPException(status_code=400, detail="Email already registered")
             
             if user.username and user.username != stored_user.username:
-                if self.__get_by_username(user.username):
+                if self.get_by_username(user.username):
                     raise HTTPException(status_code=400, detail="Username already registered")
 
             for field in user.model_dump(exclude_unset=True):

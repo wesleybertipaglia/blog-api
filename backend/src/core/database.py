@@ -12,7 +12,7 @@ def create_db(seed: bool = False):
         Base.metadata.create_all(bind=engine)
         if seed:
             seed_db()
-        print("Database created and seeded successfully")
+        print("Database created successfully")
     except Exception as e:
         print(f"An error occurred while creating the database: {e}")
 
