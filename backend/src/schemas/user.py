@@ -2,6 +2,7 @@
 
 from typing import Optional
 from pydantic import BaseModel
+from datetime import datetime
 
 class User(BaseModel):
     """User schema - Base"""
@@ -17,8 +18,8 @@ class User(BaseModel):
 class UserList(BaseModel):
     """User schema - List"""
     id: Optional[str] = None
-    username: Optional[str]
-    name: Optional[str] = None
+    username: Optional[str] = None
+    email: Optional[str] = None
 
     class Config:
         """Pydantic configuration"""
@@ -28,12 +29,14 @@ class UserSingle(BaseModel):
     """User schema - Single"""
     id: Optional[str] = None
     username: Optional[str] = None
-    name: Optional[str] = None
     email: Optional[str] = None
+    name: Optional[str] = None
     bio: Optional[str] = None
     picture: Optional[str] = None
     location: Optional[str] = None
     link: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     
     class Config:
         """Pydantic configuration"""

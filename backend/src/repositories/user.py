@@ -20,8 +20,6 @@ class UserRepository():
             return self.db.query(UserModel).offset(skip).limit(limit).all()
         except Exception as error:
             raise error
-        finally:
-            self.db.close()
 
     def get(self, id: str) -> UserModel:
         """Get a user by id. (id: str) -> UserModel."""
@@ -32,8 +30,6 @@ class UserRepository():
             return user
         except Exception as error:
             raise error
-        finally:
-            self.db.close()
     
     def __get_by_email(self, email: str) -> UserModel:
         """Get a user by email. (email: str) -> UserModel."""
@@ -60,8 +56,6 @@ class UserRepository():
         except Exception as error:
             self.db.rollback()
             raise error
-        finally:
-            self.db.close()
 
     def update(self, id: str, user: UserSingle) -> UserModel:
         """Update a user by id. (id: str, user: UserModel) -> UserModel."""
@@ -85,8 +79,6 @@ class UserRepository():
         except Exception as error:
             self.db.rollback()
             raise error
-        finally:
-            self.db.close()
 
     def delete(self, id: str) -> str:
         """Delete a user by id. (id: str) -> JSONResponse."""
@@ -94,9 +86,7 @@ class UserRepository():
             user = self.get(id)
             self.db.delete(user)
             self.db.commit()
-            return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content={"message": "User deleted."})
+            return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "User deleted."})
         except Exception as error:
             self.db.rollback()
             raise error
-        finally:
-            self.db.close()
