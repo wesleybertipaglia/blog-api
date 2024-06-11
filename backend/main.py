@@ -33,4 +33,4 @@ app.include_router(post_router, prefix='/posts', tags=['Posts'])
 app.include_router(comment_router, prefix='/comments', tags=['Comments'])
 app.include_router(like_router, prefix='/likes', tags=['Likes'])
 app.include_router(follow_router, prefix='/follows', tags=['Follows'])
-
+app.include_router(auth_router, prefix='/auth', tags=['Auth'])
