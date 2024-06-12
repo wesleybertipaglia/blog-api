@@ -43,7 +43,7 @@ class LikeRepository():
         except Exception as error:
             raise error
         
-    def list_by_post_user(self, post_id: str, user_id: str) -> LikeModel:
+    def get_by_post_user(self, post_id: str, user_id: str) -> LikeModel:
         """Get a like by post id and user id. (post_id: str, user_id: str) -> LikeModel."""
         return self.db.query(LikeModel).filter(LikeModel.post_id == post_id, LikeModel.user_id == user_id).first()
         
@@ -59,7 +59,7 @@ class LikeRepository():
         """Create a new like. (post_id: str, token: str) -> LikeModel."""     
         try:
             user_id = self.user_repository.get_current_user_id(token)
-            if self.list_by_post_user(post_id=post_id, user_id=user_id):
+            if self.get_by_post_user(post_id=post_id, user_id=user_id):
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Like already exists.")
             new_like = LikeModel(user_id=user_id, post_id=post_id)
             self.db.add(new_like)
@@ -74,7 +74,7 @@ class LikeRepository():
         """Delete a like from a post. (post_id: str, token: str) -> JSONResponse."""
         try:
             user_id = self.user_repository.get_current_user_id(token)
-            like = self.list_by_post_user(post_id=post_id, user_id=user_id)
+            like = self.get_by_post_user(post_id=post_id, user_id=user_id)
             if not like:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Like not found.")
             self.db.delete(like)

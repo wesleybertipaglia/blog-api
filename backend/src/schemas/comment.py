@@ -7,7 +7,7 @@ from datetime import datetime
 class Comment(BaseModel):
     """Comment schema - Base"""
     id: Optional[str] = None
-    user_id: str
+    user_id: Optional[str] = None
     post_id: str
     content: str
     
