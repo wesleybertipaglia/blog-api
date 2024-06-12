@@ -25,6 +25,7 @@ async def count(post_id: str, db: Session = Depends(get_db)):
     """Count all likes from a post. (post_id: str) -> int."""
     return LikeController(db).count(post_id)
 
+# Authentication is required to create and delete likes.
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=LikeSingle)
 async def create(like: Like, db: Session = Depends(get_db)):
     """Create a like. (like: LikeSingle) -> LikeSingle."""

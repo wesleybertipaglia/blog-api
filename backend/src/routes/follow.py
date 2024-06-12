@@ -35,6 +35,7 @@ async def count_following(user_id: str, db: Session = Depends(get_db)):
     """Count all following. (user_id: str) -> JSONResponse."""
     return FollowController(db).count_following(user_id)
 
+# Authentication is required to create and delete follows.
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=FollowSingle)
 async def create(follow: Follow, db: Session = Depends(get_db)):
     """Create a follow. (follow: FollowSingle) -> FollowSingle."""

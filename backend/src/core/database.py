@@ -7,7 +7,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def create_db(seed: bool = False):
-    """Create the database"""
+    """Create the database. (seed: bool = False) -> None"""
     try:
         Base.metadata.create_all(bind=engine)
         if seed:
@@ -21,7 +21,7 @@ def seed_db():
     pass
 
 def get_db():
-    """Get the database"""
+    """Get the database. () -> SessionLocal"""
     db = SessionLocal()
     try:
         yield db

@@ -25,6 +25,7 @@ async def count(post_id: str, db: Session = Depends(get_db)):
     """Count all comments. (post_id: str) -> JSONResponse."""
     return CommentController(db).count(post_id)
 
+# Authentication is required to create, update and delete comments.
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=CommentSingle)
 async def create(comment: Comment, db: Session = Depends(get_db)):
     """Create a comment. (comment: CommentSingle) -> CommentSingle."""

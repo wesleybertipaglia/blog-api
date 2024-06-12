@@ -4,7 +4,7 @@ from typing import List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from src.core.database import get_db
-from src.schemas.user import User, UserList, UserSingle
+from src.schemas.user import UserList, UserSingle
 from src.controllers.user import UserController
 from src.core.security import Security
 
@@ -19,7 +19,7 @@ async def get_current_user(token: str = Depends(security.oauth2_scheme)):
 
 @router.put('/', status_code=status.HTTP_200_OK, response_model=UserSingle)
 async def update(user: UserSingle, token: str = Depends(security.oauth2_scheme)):
-    """Update the current user. (user: UserSingle) -> UserSingle."""
+    """Update the current user. (user: UserSingle, token: str) -> UserSingle."""
     return UserController(db).update(user=user, token=token)
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[UserList])

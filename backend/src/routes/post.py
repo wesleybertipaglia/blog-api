@@ -6,31 +6,33 @@ from sqlalchemy.orm import Session
 from src.core.database import get_db
 from src.schemas.post import Post, PostList, PostSingle
 from src.controllers.post import PostController
+from src.core import Security
 
 router = APIRouter()
 db: Session = next(get_db())
+security = Security()
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[PostList])
-async def list(db: Session = Depends(get_db), skip: int = 0, limit: int = 10):
+async def list(skip: int = 0, limit: int = 10):
     """List all posts with pagination. (skip: int = 0, limit: int = 10) -> List[PostList]."""
     return PostController(db).list(skip=skip, limit=limit)
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=PostSingle)
-async def get(id: str, db: Session = Depends(get_db)):
+async def get(id: str):
     """Get a post by id. (id: str) -> PostSingle."""
     return PostController(db).get(id)
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=PostSingle)
-async def create(post: Post, db: Session = Depends(get_db)):
-    """Create a post. (post: PostSingle) -> PostSingle."""
-    return PostController(db).create(post)
+async def create(post: Post, token: str = Depends(security.oauth2_scheme)):
+    """Create a post. (post: PostSingle, token: str) -> PostSingle."""
+    return PostController(db).create(post=post, token=token)
 
 @router.put('/{id}', status_code=status.HTTP_200_OK, response_model=PostSingle)
-async def update(id: str, post: PostSingle, db: Session = Depends(get_db)):
-    """Update a post by id. (id: str, post: PostSingle) -> PostSingle."""
-    return PostController(db).update(id=id, post=post)
+async def update(id: str, post: PostSingle, token: str = Depends(security.oauth2_scheme)):
+    """Update a post by id. (id: str, post: PostSingle, token: str) -> PostSingle."""
+    return PostController(db).update(id=id, post=post, token=token)
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
-async def delete(id: str, db: Session = Depends(get_db)):
-    """Delete a post by id. (id: str) -> JSONResponse."""
-    return PostController(db).delete(id)
+async def delete(id: str, token: str = Depends(security.oauth2_scheme)):
+    """Delete a post by id. (id: str, token: str) -> JSONResponse."""
+    return PostController(db).delete(id=id, token=token)

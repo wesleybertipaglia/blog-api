@@ -7,7 +7,6 @@ from datetime import datetime
 class Post(BaseModel):
     """Post schema - Base"""
     id: Optional[str] = None
-    user_id: str # remove it later
     title: str
     content: str
     picture: Optional[str] = None
@@ -30,6 +29,7 @@ class PostList(BaseModel):
 class PostSingle(BaseModel):
     """Post schema - Single"""
     id: Optional[str] = None
+    user_id: Optional[str] = None
     title: Optional[str] = None
     content: Optional[str] = None
     picture: Optional[str] = None

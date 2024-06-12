@@ -19,14 +19,14 @@ class PostController:
         """Get a post by id. (id: str) -> PostSingle."""
         return self.post_repository.get(id)
     
-    def create(self, post: Post) -> PostSingle:
-        """Create a post. (post: Post) -> PostSingle."""
-        return self.post_repository.create(post)
+    def create(self, post: Post, token: str) -> PostSingle:
+        """Create a post. (post: Post, token: str) -> PostSingle."""
+        return self.post_repository.create(post=post, token=token)
     
-    def update(self, id: str, post: PostSingle) -> PostSingle:
-        """Update a post by id. (id: str, post: PostSingle) -> PostSingle."""
-        return self.post_repository.update(id=id, post=post)
+    def update(self, id: str, post: PostSingle, token: str) -> PostSingle:
+        """Update a post by id. (id: str, post: PostSingle, token: str) -> PostSingle."""
+        return self.post_repository.update(id=id, post=post, token=token)
     
-    def delete(self, id: str) -> JSONResponse:
-        """Delete a post by id. (id: str) -> JSONResponse."""
-        return self.post_repository.delete(id)
+    def delete(self, id: str, token: str) -> JSONResponse:
+        """Delete a post by id. (id: str, token: str) -> JSONResponse."""
+        return self.post_repository.delete(id=id, token=token)

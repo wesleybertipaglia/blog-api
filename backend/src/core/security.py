@@ -20,9 +20,9 @@ class Security:
         return self.token.verify(token)
 
     def generate_hash(self, password: str) -> str:
-        """Generate a hash from data. (password) -> hash string"""
+        """Generate a hash from data. (password: str) -> hash string"""
         return self.hash.generate(password)
 
     def verify_hash(self, password: str, hash: str) -> bool:
-        """Verify a hash. (password, hash) -> bool"""
+        """Verify a hash. (password: str, hash: str) -> bool"""
         return self.hash.verify(plain_password=password, hashed_password=hash)
