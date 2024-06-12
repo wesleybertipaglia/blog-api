@@ -11,6 +11,14 @@ class FollowController:
         self.db = db
         self.follow_repository = FollowRepository(db)
 
+    def list_my_followers(self, token: str, skip: int = 0, limit: int = 10) -> List[FollowList]:
+        """List all followers of the current user with pagination. (token: str, skip: int = 0, limit: int = 10) -> List[FollowList]."""
+        return self.follow_repository.list_my_followers(skip=skip, limit=limit, token=token)
+    
+    def list_my_following(self, token: str, skip: int = 0, limit: int = 10) -> List[FollowList]:
+        """List all following of the current user with pagination. (token: str, skip: int = 0, limit: int = 10) -> List[FollowList]."""
+        return self.follow_repository.list_my_following(skip=skip, limit=limit, token=token)
+
     def list_followers(self, user_id: str, skip: int = 0, limit: int = 10) -> List[FollowList]:
         """List all followers of a user with pagination. (user_id: str, skip: int = 0, limit: int = 10) -> List[FollowList]."""
         return self.follow_repository.list_followers(user_id=user_id, skip=skip, limit=limit)
@@ -31,10 +39,10 @@ class FollowController:
         """Count all following. (user_id: str) -> JSONResponse."""
         return self.follow_repository.count_following(user_id)
     
-    def create(self, follow: Follow) -> FollowSingle:
-        """Create a follow. (follow: Follow) -> FollowSingle."""
-        return self.follow_repository.create(follow)
+    def create(self, user_id: str, token: str) -> FollowSingle:
+        """Create a follow. (user_id: str, token: str) -> FollowSingle."""
+        return self.follow_repository.create(user_id=user_id, token=token)
     
-    def delete(self, id: str) -> JSONResponse:
-        """Delete a follow by id. (id: str) -> JSONResponse."""
-        return self.follow_repository.delete(id)
+    def delete(self, user_id: str, token: str) -> JSONResponse:
+        """Stop following a user. (user_id: str, token: str) -> JSONResponse."""
+        return self.follow_repository.delete(user_id=user_id, token=token)

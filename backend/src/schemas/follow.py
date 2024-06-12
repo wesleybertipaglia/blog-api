@@ -7,7 +7,7 @@ from datetime import datetime
 class Follow(BaseModel):
     """Follow schema - Base"""
     id: Optional[str] = None
-    follower_id: str
+    follower_id: Optional[str] = None
     followed_id: str
     
     class Config:
