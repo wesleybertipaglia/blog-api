@@ -21,6 +21,21 @@ class PostRepository():
             return self.db.query(PostModel).offset(skip).limit(limit).all()
         except Exception as error:
             raise error
+        
+    def list_by_user(self, user_id: str, skip: int, limit: int) -> List[PostModel]:
+        """List all posts from a user with pagination. (user_id: str, skip: int, limit: int) -> List[PostModel]."""
+        try:
+            return self.db.query(PostModel).filter(PostModel.user_id == user_id).offset(skip).limit(limit).all()
+        except Exception as error:
+            raise error
+        
+    def list_my_posts(self, token: str, skip: int, limit: int) -> List[PostModel]:
+        """List all posts from the current user with pagination. (token: str, skip: int, limit: int) -> List[PostModel]."""
+        try:
+            user_id = self.user_repository.get_current_user_id(token)
+            return self.db.query(PostModel).filter(PostModel.user_id == user_id).offset(skip).limit(limit).all()
+        except Exception as error:
+            raise error
 
     def get(self, id: str) -> PostModel:
         """Get a post by id. (id: str) -> PostModel."""

@@ -17,6 +17,16 @@ async def list(skip: int = 0, limit: int = 10):
     """List all posts with pagination. (skip: int = 0, limit: int = 10) -> List[PostList]."""
     return PostController(db).list(skip=skip, limit=limit)
 
+@router.get('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=List[PostList])
+async def list_by_user(user_id: str, skip: int = 0, limit: int = 10):
+    """List all posts from a user with pagination. (user_id: str, skip: int = 0, limit: int = 10) -> List[PostList]."""
+    return PostController(db).list_by_user(user_id=user_id, skip=skip, limit=limit)
+
+@router.get('/current', status_code=status.HTTP_200_OK, response_model=List[PostList])
+async def list_my_posts(token: str = Depends(security.oauth2_scheme), skip: int = 0, limit: int = 10):
+    """List all posts from the current user with pagination. (token: str, skip: int = 0, limit: int = 10) -> List[PostList]."""
+    return PostController(db).list_my_posts(token=token, skip=skip, limit=limit)
+
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=PostSingle)
 async def get(id: str):
     """Get a post by id. (id: str) -> PostSingle."""

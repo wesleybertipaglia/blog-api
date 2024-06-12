@@ -15,6 +15,14 @@ class PostController:
         """List all posts with pagination. (skip: int = 0, limit: int = 10) -> List[PostList]."""
         return self.post_repository.list(skip=skip, limit=limit)
     
+    def list_by_user(self, user_id: str, skip: int = 0, limit: int = 10) -> List[PostList]:
+        """List all posts from a user with pagination. (user_id: str, skip: int = 0, limit: int = 10) -> List[PostList]."""
+        return self.post_repository.list_by_user(user_id=user_id, skip=skip, limit=limit)
+    
+    def list_my_posts(self, token: str, skip: int = 0, limit: int = 10) -> List[PostList]:
+        """List all posts from the current user with pagination. (token: str, skip: int = 0, limit: int = 10) -> List[PostList]."""
+        return self.post_repository.list_my_posts(token=token, skip=skip, limit=limit)
+    
     def get(self, id: str) -> PostSingle:
         """Get a post by id. (id: str) -> PostSingle."""
         return self.post_repository.get(id)
