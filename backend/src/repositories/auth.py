@@ -49,30 +49,11 @@ class AuthRepository():
             return AuthToken(access_token=token)
         except Exception as error:
             raise error
-        
-    def get_current_user(self, token: str) -> UserModel:
-        """Get current user. (token: str) -> UserModel."""
-        try:
-            payload = self.security.verify_token(token)
-            user = self.user_repository.get_by_email(payload.get("sub"))
-            if not user:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found.")
-            return user
-        except Exception as error:
-            raise error
-
-    def get_current_user_id(self, token: str) -> str:
-        """Get current user id. (token: str) -> str."""
-        try:
-            user = self.get_current_user(token)
-            return user.id
-        except Exception as error:
-            raise error
-        
+          
     def update_password(self, auth: AuthUpdatePassword, token: str) -> JSONResponse:
         """Update password. (auth: AuthUpdatePassword, token: str) -> JSONResponse."""
         try:
-            user = self.get_current_user(token)
+            user = self.user_repository.get_current_user(token)
             if not self.security.verify_hash(password=auth.password, hash=user.password):
                 raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials.")
             user.password = self.security.generate_hash(password=auth.new_password)
@@ -85,7 +66,7 @@ class AuthRepository():
     def delete(self, auth: AuthDelete, token: str) -> JSONResponse:
         """Delete an account. (auth: AuthDelete, token: str) -> JSONResponse."""
         try:
-            user = self.get_current_user(token)
+            user = self.user_repository.get_current_user(token)
             if not self.security.verify_hash(password=auth.password, hash=user.password):
                 raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials.")
             self.db.delete(user)

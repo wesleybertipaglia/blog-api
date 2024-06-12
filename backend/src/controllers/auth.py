@@ -18,10 +18,10 @@ class AuthController:
         """Sign up. (auth: AuthSignUP) -> JSONResponse."""
         return self.auth_repository.sign_up(auth)
     
-    def update_password(self, auth: AuthUpdatePassword, token) -> JSONResponse:
-        """Update password. (auth: AuthUpdatePassword, token: dict) -> JSONResponse."""
+    def update_password(self, auth: AuthUpdatePassword, token: str) -> JSONResponse:
+        """Update password. (auth: AuthUpdatePassword, token: str) -> JSONResponse."""
         return self.auth_repository.update_password(auth=auth, token=token)
 
-    def delete(self, auth: AuthDelete, token) -> JSONResponse:
-        """Delete an account. (auth: AuthDelete, token: dict) -> JSONResponse."""
+    def delete(self, auth: AuthDelete, token: str) -> JSONResponse:
+        """Delete an account. (auth: AuthDelete, token: str) -> JSONResponse."""
         return self.auth_repository.delete(auth=auth, token=token)

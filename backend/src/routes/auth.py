@@ -6,7 +6,6 @@ from src.core.database import get_db
 from src.schemas.auth import AuthSignIN, AuthSignUP, AuthDelete, AuthUpdatePassword
 from src.schemas.user import UserSingle
 from src.controllers.auth import AuthController
-from src.repositories.auth import AuthRepository
 from src.core.security import Security
 
 router = APIRouter()

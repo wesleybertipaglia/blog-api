@@ -25,4 +25,4 @@ class Security:
 
     def verify_hash(self, password: str, hash: str) -> bool:
         """Verify a hash. (password, hash) -> bool"""
-        return self.hash.verify(plain_password=password, hashed_password=hash) 
+        return self.hash.verify(plain_password=password, hashed_password=hash)
